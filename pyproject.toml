@@ -1,0 +1,92 @@
+[project]
+name = "azure-ai-vision-person"
+version = "0.1.0"
+description = "Unofficial SDK of Azure Person Directory and Dynamic Person Group"
+readme = "README.md"
+authors = [
+    { name = "Mohanad Ghali", email = "mghalix@gmail.com" }
+]
+requires-python = ">=3.11"
+dependencies = [
+    "httpx>=0.28.1",
+    "loguru>=0.7.3",
+    "pydantic>=2.11.5",
+    "sdk-creator==0.0.2",
+]
+
+[build-system]
+requires = ["uv_build>=0.8.2,<0.9.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "dotenv>=0.9.9",
+    "ipykernel>=6.30.0",
+    "pytest>=8.4.1",
+]
+
+[tool.pytest.ini_options]
+pythonpath = ["src/azure_ai_vision_person"]
+testpaths = ["tests"]
+python_files = ["test_*.py", "*_test.py"]
+# asyncio_mode = "auto"
+filterwarnings = ["ignore::DeprecationWarning"]
+
+[tool.coverage.report]
+show_missing = true
+fail_under = 60
+exclude_lines = ["no cov", "if __name__ == .__main__.:", "if TYPE_CHECKING:"]
+
+[tool.ruff]
+line-length = 88
+target-version = "py311"
+include = ["*.py", "*.pyi", "**/pyproject.toml", "*.ipynb"]
+
+[tool.ruff.format]
+docstring-code-format = true
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.ruff.lint]
+fixable = ["ALL"]
+unfixable = []
+select = [
+    "E",   # pycodestyle errors
+    "F",   # pyflakes
+    "I",   # isort
+    "D",   # pydocstyle
+    "B",   # flake8-bugbear
+    "W",   # pycodestyle warnings
+    "C4",  # flake8-comprehensions
+    "PIE", # flake8-pie
+    "ANN", # type annotations
+    "UP",  # pyupgrade
+    "N",   # pep8-naming
+    "RUF", # ruff specific rules
+    "ISC", # implicit string concat
+    "INP", # implicit namespace package
+    "RSE", # raise exception parantheses check
+    "RET", # flake8-return check
+    "SIM", # flake8-simplify check
+    "TD",  # todos
+    "FIX", # fixme
+]
+ignore = [
+    "B008",   # Do not perform function call in argument defaults
+    "D203",   # 1 blank line required before class docstring
+    "D212",   # Multi-line docstring summary should start at the first line
+    "D205",   # 1 blank line required between summary line and description
+    "D100",   # allow missing docstring for public functions
+    "D103",   # allow missing docstring for public modules
+    "D104",   # allow missing docstring in public package
+    "ANN401", # allow dynamically typed expressions (typing.Any)
+    "D418",   # allow docstring on overloaded function
+    "TD003",  # allow missing link to todo issue
+    "FIX002", # allow todo
+    #-----------------------#
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["D", "INP", "TD", "ERA001", "RUF", "ANN201"]
+"examples/**" = ["D", "INP", "ERA001", "RUF", "E501"]
