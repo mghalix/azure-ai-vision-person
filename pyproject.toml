@@ -22,7 +22,9 @@ build-backend = "uv_build"
 dev = [
     "dotenv>=0.9.9",
     "ipykernel>=6.30.0",
+    "mypy>=1.17.0",
     "pytest>=8.4.1",
+    "ruff>=0.12.5",
 ]
 
 [tool.pytest.ini_options]
