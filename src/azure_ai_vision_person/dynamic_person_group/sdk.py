@@ -88,25 +88,24 @@ class DynamicPersonGroup:
         response = await self._adapter.get(group_id, start=start, top=top)
         return DynamicPersonGroupModel.model_validate(response.data)
 
-    # FIXME: NOT WORKING
     @map_group_err
     async def create_group(
         self,
-        id: str,
+        group_id: str,
         name: str,
         user_data: str | dict | None = None,
         person_ids: Sequence[str] | None = None,
     ) -> None:
         """Creates a new Dynamic Person Group."""
         dpg = DynamicPersonGroupCreate(
-            dynamic_person_group_id=id,
+            dynamic_person_group_id=group_id,
             name=name,
             user_data=user_data,
             add_person_ids=person_ids,
         )
         data = dpg.model_dump(exclude_none=True)
 
-        await self._adapter.post("", data=data)
+        await self._adapter.put(group_id, data=data)
 
     @map_group_err
     @ensure_group_exist
